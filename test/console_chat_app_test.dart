@@ -1,4 +1,4 @@
-import 'package:console_chat_app/console_chat_app.dart';
+import 'package:console_chat_app/main.dart';
 import 'package:test/test.dart';
 
 void main() {
