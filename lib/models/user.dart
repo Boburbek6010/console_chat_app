@@ -4,7 +4,7 @@ class User {
   late String id;
   late String name;
   late String nickName;
-  late String phone;
+  late int phone;
   late int password;
   late bool isLogged;
   List<Contacts>? contacts;

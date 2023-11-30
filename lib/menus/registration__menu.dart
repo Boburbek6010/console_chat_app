@@ -20,19 +20,31 @@ class Registration extends Menu {
     while(tekshir){
       print("Please enter your name correctly");
       stdout.write(" Name : ");
-      String? ism = stdin.readLineSync()!;
-      name = ism;
+      String? name1 = stdin.readLineSync()!;
+      name = name1;
       break;
     }
     String nickname = prompt("Nickname: ");
-    String phone = prompt("Phone: ");
+    stdout.write("Phone : +998");
+    int? phone = int.tryParse(stdin.readLineSync()!);
+    if (phone == null || phone.toString().length != 9) {
+      bool check = false;
+      while (!check) {
+        stdout.write("Iltimos to'g'ri raqam kiriting : +998");
+        int? qaytaraqam = int.tryParse(stdin.readLineSync()!);
+        if (qaytaraqam.toString().length == 9 && qaytaraqam != null)
+          check = true;
+        else
+          check = false;
+      }
+    }
 
     if (isUserLoggedIn()) {
       print("User is already logged in. Cannot register a new user.");
       return;
     }
 
-    User newUser = User('0', name!, nickname.hashCode, nickname, phone, true);
+    User newUser = User('0', name!, nickname.hashCode, nickname, phone!, true);
 
     await NetworkService.postData(newUser);
     print('New User created: ${newUser.name}');
