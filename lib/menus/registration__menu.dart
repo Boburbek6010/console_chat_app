@@ -20,8 +20,8 @@ class Registration extends Menu {
     while(tekshir){
       print("Please enter your name correctly");
       stdout.write(" Name : ");
-      String? name = stdin.readLineSync()!;
-      name = name;
+      String? ism = stdin.readLineSync()!;
+      name = ism;
       break;
     }
     String nickname = prompt("Nickname: ");
@@ -32,7 +32,7 @@ class Registration extends Menu {
       return;
     }
 
-    User newUser = User('0', name, nickname.hashCode, nickname, phone, true);
+    User newUser = User('0', name!, nickname.hashCode, nickname, phone, true);
 
     await NetworkService.postData(newUser);
     print('New User created: ${newUser.name}');
