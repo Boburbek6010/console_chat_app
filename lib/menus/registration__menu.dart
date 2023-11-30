@@ -13,12 +13,13 @@ class Registration extends Menu {
     String? name = stdin.readLineSync()!;
     bool tekshir = true;
     if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name))
-      {print('Ismingizni to\'`g\'ri kiriting .');
+      {tekshir = true;
       }else{
-      tekshir = true;
+      tekshir = false;
     }
     while(tekshir){
-      stdout.write("Name : ");
+      print("Please enter your name correctly");
+      stdout.write(" Name : ");
       String? name = stdin.readLineSync()!;
       name = name;
       break;
