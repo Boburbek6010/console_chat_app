@@ -1,4 +1,4 @@
-import 'dart:convert';
+
 import 'dart:io';
 import '../models/user.dart';
 import '../service/network__service.dart';
@@ -6,11 +6,23 @@ import 'menu.dart';
 
 class Registration extends Menu {
   static const id = '/registration_menu';
-
   @override
   build() async {
     print("Enter user details:");
-    String name = prompt("Name: ");
+    stdout.write("Name : ");
+    String? name = stdin.readLineSync()!;
+    bool tekshir = true;
+    if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name))
+      {print('Ismingizni to\'`g\'ri kiriting .');
+      }else{
+      tekshir = true;
+    }
+    while(tekshir){
+      stdout.write("Name : ");
+      String? name = stdin.readLineSync()!;
+      name = name;
+      break;
+    }
     String nickname = prompt("Nickname: ");
     String phone = prompt("Phone: ");
 
