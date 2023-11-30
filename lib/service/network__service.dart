@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../modules/user.dart';
+import '../models/user.dart';
 import 'package:http/http.dart';
 
 class NetworkService {
