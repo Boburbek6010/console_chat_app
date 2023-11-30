@@ -3,6 +3,7 @@ import '../modules/user.dart';
 import 'package:http/http.dart';
 
 class NetworkService {
+
   static const String baseUrl = '656785c664fcff8d731087d1.mockapi.io';
   static const String apiUser = '/Users';
 
@@ -11,5 +12,5 @@ class NetworkService {
     Response response = await get(url);
     return response.body;
   }
-
+  
 }
