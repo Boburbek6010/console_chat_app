@@ -28,7 +28,7 @@ class TextingMenu extends Menu{
     print("Choose the chat");
     int? chosen_contact = int.tryParse(stdin.readLineSync()!);
 
-    print("${user.contacts?[chosen_contact!-1]}");
+    print("${user.contacts?[chosen_contact!-1].name}");
 
     print("test message:");
 
