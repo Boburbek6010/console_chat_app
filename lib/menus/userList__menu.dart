@@ -13,13 +13,11 @@ class UserListMenu extends Menu{
     String data = await NetworkService.getData(apiEndpoint);
 
     List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
-
+    print('\nList of Users:');
     for (User user in users) {
-      print('ID: ${user.id}');
-      print('Name: ${user.name}');
-      print('Nick Name: ${user.nickName}');
-      print('Phone: ${user.phone}');
-      print('---------------------------------------');
+      
+      print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}\n');
+      
     }
   }
 }

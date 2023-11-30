@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../models/user.dart';
+import 'package:console_chat_app/models/user.dart';
 import 'package:http/http.dart';
 
 class NetworkService {
@@ -11,6 +11,15 @@ class NetworkService {
     Uri url = Uri.https(baseUrl, api);
     Response response = await get(url);
     return response.body;
+    
   }
   
+    static Future<void> postData(User product) async {
+    Uri url = Uri.https(baseUrl, apiUser);
+    await post(
+      url,
+      body: json.encode(product.toJson()),
+      headers: {'Content-Type': 'application/json'},
+    );
+  }
 }
