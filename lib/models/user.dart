@@ -5,7 +5,7 @@ class User {
   late String name;
   late String nickName;
   late String phone;
-  late int password;
+  late String password;
   late bool isLogged;
   List<Contacts>? contacts;
 
@@ -15,7 +15,7 @@ class User {
   User.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         name = json['name'],
-        password = int.parse(json['password'].toString()),
+        password = json['password'],
         nickName = json['nickName'],
         phone = json['phone'].toString(),
         isLogged = json['isLogged'],
