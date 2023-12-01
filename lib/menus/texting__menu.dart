@@ -27,13 +27,26 @@ class TextingMenu extends Menu{
 
     print("Choose the chat");
     int? chosen_contact = int.tryParse(stdin.readLineSync()!);
+    if(chosen_contact == null || (chosen_contact < 0 || chosen_contact> user.contacts!.length)){
+      bool check = true;
+      while(check){
+        stdout.write("Xato kiritdingiz Iltimos qaytadan kiriting - ");
+        int? qayta = int.tryParse(stdin.readLineSync()!);
+        chosen_contact = qayta;
+        if(chosen_contact == null || (chosen_contact < 0 || chosen_contact> user.contacts!.length)){
+          check = true;
+        }else{
+          check = false;
+        }
+      }
+    }
+
 
     print("${user.contacts?[chosen_contact!-1].name}");
 
     print("test message:");
 
     String? text = stdin.readLineSync();
-
     Message message = Message(user.id, chosen_contact!-1, text!);
 
     await NetworkService.postMessageData(message);
