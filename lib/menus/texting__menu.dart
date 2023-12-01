@@ -18,7 +18,6 @@ class TextingMenu extends Menu{
     List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
     User user = users[0];
 
-
     print("Contacts list:\n");
 
     for(int i = 0; i<= user.contacts!.length-1; i++){
