@@ -9,8 +9,14 @@ class Registration extends Menu {
   @override
   build() async {
     print("Enter user details:");
+    String rangUzgartir(String word) {
+      String rang = '\x1B[31m$word\x1B[0m';
+      return rang;
+    }
     stdout.write("Name : ");
     String? name = stdin.readLineSync()!;
+    String rang = rangUzgartir(name);
+
     bool tekshir = true;
     if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name))
       {tekshir = true;
@@ -32,10 +38,11 @@ class Registration extends Menu {
       while (!check) {
         stdout.write("Iltimos to'g'ri raqam kiriting : +998");
         int? qaytaraqam = int.tryParse(stdin.readLineSync()!);
-        if (qaytaraqam.toString().length == 9 && qaytaraqam != null)
+        if (qaytaraqam.toString().length == 9 && qaytaraqam != null) {
           check = true;
-        else
+        } else {
           check = false;
+        }
       }
     }
 
@@ -47,7 +54,7 @@ class Registration extends Menu {
     User newUser = User('0', name!, nickname.hashCode, nickname, phone, true);
 
     await NetworkService.postData(newUser);
-    print('New User created: ${newUser.name}');
+    print('New User created:  $rang');
   }
 
   bool isUserLoggedIn() {
