@@ -21,25 +21,37 @@ class TextingMenu extends Menu {
 
     print("Contacts list:\n");
 
-    for (int i = 0; i <= user.contacts!.length - 1; i++) {
+    for (int i = 0; i < user.contacts!.length; i++) {
       print('${i + 1} ${user.contacts![i].name}: ${user.contacts![i].phone}');
     }
 
     print("Choose the chat");
-    int? chosen_contact = int.tryParse(stdin.readLineSync()!);
+    int? chosenContact = int.tryParse(stdin.readLineSync()!);
 
-    print("${user.contacts?[chosen_contact! - 1].name}");
+    print("${user.contacts?[chosenContact! - 1].name}");
 
-    print("test message:");
+    int lastMessageId = 0;
 
-    String? text = stdin.readLineSync();
+    while (true) {
+      String json = await NetworkService.getData(NetworkService.apiMessage);
+      List<Message> messages = List<Message>.from(jsonDecode(json).map((e) => Message.fromJson(e)));
 
-    Message message = Message(user.id, chosen_contact! - 1, text!);
+      for(int i = 0; i<messages.length; i++){
+        if(messages[i].from == users[chosenContact!].id && messages[i].to.toString() == user.id){
+          print("${messages[i].text}  ${messages[i].timeSent}");
+        }
+      }
 
-    await NetworkService.postMessageData(message);
+      // Simulate typing and sending a message
+      print("Type a message (type 'exit' to stop):");
+      String? text = stdin.readLineSync();
 
-    String messages = await NetworkService.getData(NetworkService.apiMessage);
+      if (text == 'exit') {
+        break;
+      }
 
-    print(messages);
+      Message newMessage = Message(user.id, chosenContact! - 1, text!);
+      await NetworkService.postMessageData(newMessage);
+    }
   }
 }

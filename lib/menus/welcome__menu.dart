@@ -1,4 +1,5 @@
 import 'package:console_chat_app/menus/registration__menu.dart';
+import 'package:console_chat_app/menus/texting__menu.dart';
 
 import '../menus/userList__menu.dart';
 import 'dart:io';
@@ -15,7 +16,7 @@ class WelcomeMenu extends Menu{
       "Select menu:\n"
       "1. User List Menu\n"
       "2. Registration\n"
-      "3. Settings\n"
+      "3. Chats\n"
       "4. Exit\n"  
     );
     String? menuSelection = stdin.readLineSync();
@@ -30,7 +31,7 @@ class WelcomeMenu extends Menu{
       }
       break;
       case "3":{
-        await Navigator.push(UserListMenu());
+        await Navigator.push(TextingMenu());
       }
       break;
       case "4":{

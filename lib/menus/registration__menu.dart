@@ -60,7 +60,6 @@ class Registration extends Menu {
 
     await NetworkService.postData(newUser);
     print('New User created:  $rang');
-    await Navigator.push(WelcomeMenu());
   }
 
   bool isUserLoggedIn() {

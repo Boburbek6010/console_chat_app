@@ -15,9 +15,7 @@ class UserListMenu extends Menu{
     List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
     print('\nList of Users:');
     for (User user in users) {
-      
-      print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}\n');
-      
+      print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}');
     }
   }
 }
