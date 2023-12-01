@@ -16,6 +16,7 @@ void main() async {
       TextingMenu.id: TextingMenu(),
       UserListMenu.id: UserListMenu(),
       Registration.id: Registration(),
+      TextingMenu.id: TextingMenu(),
     }
   );
 }

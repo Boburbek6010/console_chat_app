@@ -1,7 +1,8 @@
-import 'dart:convert';
-import 'package:console_chat_app/models/message.dart';
-import 'package:console_chat_app/models/user.dart';
 import 'package:http/http.dart';
+import 'dart:convert';
+import '../models/message.dart';
+import '../models/user.dart';
+
 
 class NetworkService {
 

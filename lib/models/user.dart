@@ -1,4 +1,4 @@
-import 'package:console_chat_app/models/contact.dart';
+import '../models/contact.dart';
 
 class User {
   late String id;

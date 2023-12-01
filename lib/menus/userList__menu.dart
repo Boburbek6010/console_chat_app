@@ -16,7 +16,7 @@ class UserListMenu extends Menu{
     print('\nList of Users:');
     for (User user in users) {
       
-      print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}');
+      print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}\n');
       
     }
   }

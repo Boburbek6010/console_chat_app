@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:console_chat_app/models/message.dart';
+import '../models/message.dart';
 
 import '../models/user.dart';
 import '../service/network__service.dart';
