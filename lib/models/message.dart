@@ -1,4 +1,7 @@
+int a = 0;
+
 class Message {
+  late int messageId;
   late String from;
   late int to;
   late String text;
@@ -6,6 +9,8 @@ class Message {
 
   Message(this.from, this.to, this.text) {
     this.timeSent = DateTime.now();
+    a++;
+    this.messageId = a;
   }
 
   Message.fromJson(Map<String, dynamic> json) {

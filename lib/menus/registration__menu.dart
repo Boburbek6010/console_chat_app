@@ -1,35 +1,37 @@
+
 import 'dart:io';
-import 'package:console_chat_app/menus/auth__menu.dart';
 import '../models/user.dart';
 import '../service/network__service.dart';
+import 'menu.dart';
 
 
 class Registration extends Authentication {
-
+  static User currentUser = User('0', '', '', '', '', true);
   static const id = '/registration_menu';
-
   @override
   build() async {
     print("Enter user details:");
-
-    stdout.write("Name: ");
+    String rangUzgartir(String word) {
+      String rang = '\x1B[31m$word\x1B[0m';
+      return rang;
+    }
+    stdout.write("Name : ");
     String? name = stdin.readLineSync()!;
+    String rang = rangUzgartir(name);
 
     bool tekshir = true;
-    if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name)) {
-      tekshir = true;
-    } else {
+    if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name))
+      {tekshir = true;
+      }else{
       tekshir = false;
     }
-
-    while (tekshir) {
+    while(tekshir){
       print("Please enter your name correctly");
-      stdout.write("Name: ");
+      stdout.write(" Name : ");
       String? name1 = stdin.readLineSync()!;
       name = name1;
       break;
     }
-
     String nickname = prompt("Nickname: ");
 
     stdout.write("Password: ");

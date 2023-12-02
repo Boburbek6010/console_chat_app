@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import '../models/user.dart';
 import '../service/network__service.dart';
 import 'menu.dart';
@@ -15,9 +16,7 @@ class UserListMenu extends Menu{
     List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
     print('\nList of Users: ');
     for (User user in users) {
-      
-      print('\n${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}');
-      
+      print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}');
     }
 
   }
