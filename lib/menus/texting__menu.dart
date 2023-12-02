@@ -30,8 +30,6 @@ class TextingMenu extends Menu {
 
     print("${user.contacts?[chosenContact! - 1].name}");
 
-    int lastMessageId = 0;
-
     while (true) {
       String json = await NetworkService.getData(NetworkService.apiMessage);
       List<Message> messages = List<Message>.from(jsonDecode(json).map((e) => Message.fromJson(e)));

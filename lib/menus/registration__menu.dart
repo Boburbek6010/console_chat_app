@@ -4,7 +4,6 @@ import 'package:console_chat_app/menus/auth__menu.dart';
 
 import '../models/user.dart';
 import '../service/network__service.dart';
-import 'menu.dart';
 
 
 class Registration extends Authentication {
