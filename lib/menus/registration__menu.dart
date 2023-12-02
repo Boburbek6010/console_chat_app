@@ -5,7 +5,7 @@ import '../service/network__service.dart';
 
 
 class Registration extends Authentication {
-  static User currentUser = User('0', '', '', '', '', true);
+
   static const id = '/registration_menu';
 
   @override
