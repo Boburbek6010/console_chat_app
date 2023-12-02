@@ -44,7 +44,7 @@ class TextingMenu extends Menu {
 
     print("${user.contacts?[chosenContact! - 1].name}");
 
-    int lastMessageId = 0;
+    DateTime lastMessage = DateTime(2022, 12, 2);
 
     while (true) {
       String json = await NetworkService.getData(NetworkService.apiMessage);

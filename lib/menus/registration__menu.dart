@@ -50,7 +50,7 @@ class Registration extends Authentication {
       while (!check) {
         stdout.write("Please enter a valid phone number: +998");
         String? qaytaraqam = stdin.readLineSync();
-        if (qaytaraqam!.length == 9 && qaytaraqam.startsWith('9')) {
+        if (qaytaraqam!.length == 9) {
           phone = qaytaraqam;
           check = true;
         } else {
