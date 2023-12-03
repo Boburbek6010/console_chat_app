@@ -7,7 +7,7 @@ import 'package:console_chat_app/my__app.dart';
 void main() async {
 
   MyApp(
-    home: Authentication(),
+    home: TextingMenu(),
     routes: {
       TextingMenu.id: TextingMenu(),
       UserListMenu.id: UserListMenu(),

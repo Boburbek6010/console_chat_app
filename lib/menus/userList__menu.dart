@@ -1,9 +1,7 @@
 import 'dart:convert';
-
 import '../models/user.dart';
 import '../service/network__service.dart';
 import 'menu.dart';
-import 'dart:io';
 
 class UserListMenu extends Menu{
   static const id = "/userList_menu";
