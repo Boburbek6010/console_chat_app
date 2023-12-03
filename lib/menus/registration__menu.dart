@@ -54,7 +54,7 @@ class Registration extends Authentication {
           phone = qaytaraqam;
           check = true;
         } else {
-          check = false;
+          check = false; 
         }
       }
     }
