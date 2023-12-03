@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:http/http.dart';
 import 'dart:convert';
 import '../models/message.dart';
@@ -14,10 +16,9 @@ class NetworkService {
     Uri url = Uri.https(baseUrl, api);
     Response response = await get(url);
     return response.body;
-    
   }
-  
-    static Future<void> postData(User product) async {
+
+  static Future<void> postData(User product) async {
     Uri url = Uri.https(baseUrl, apiUser);
     await post(
       url,
@@ -35,4 +36,13 @@ class NetworkService {
     );
   }
 
+  static Future<void> postInfo(User product) async {
+    Uri url = Uri.https(baseUrl, apiUser);
+    await post(
+      url,
+      body: json.encode(product.toJson()),
+      headers: {'Content-Type': 'application/json'},
+    );
+  }
 }
+
