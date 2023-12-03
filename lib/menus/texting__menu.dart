@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:console_chat_app/menus/welcome__menu.dart';
+import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
 
 import '../models/contact.dart';
@@ -15,37 +15,43 @@ import 'menu.dart';
 
 class TextingMenu extends Menu {
   static const id = "/texting_menu";
-  static User user = User(
-    '1',
-    "John Doe",
-    'password123',
-    'JohnD',
-    '123456789',
-    true,
-    contacts: [Contacts('Friend 1', '987654321')],
-  );
 
   @override
   build() async {
-    String apiEndpoint = NetworkService.apiUser;
-    String data = await NetworkService.getData(apiEndpoint);
+    String userData = await NetworkService.getData(NetworkService.apiUser);
+    List<User> users = (json.decode(userData) as List)
+        .map((json) => User.fromJson(json))
+        .toList();
 
-    List<User> users =
-        (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
+    String messageData = await NetworkService.getData(NetworkService.apiMessage);
+    List<Message> messages = (json.decode(messageData) as List)
+        .map((json) => Message.fromJson(json))
+        .toList();
+
+    User user1 = Menu.user;
 
     print("Contacts list:\n");
 
-    for (int i = 0; i < user.contacts!.length; i++) {
-      print('${i} ${user.contacts![i].name}: ${user.contacts![i].phone}');
+    for (int i = 0; i < user1.contacts!.length; i++) {
+      print('${i} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
+    }
+
+    for (Message msg in messages) {
+      bool yoyo = await isMyContact(user1.contacts, msg.from);
+      if (msg.to.toString() == user1.id && !yoyo) {
+        print("You have messages from strangers");
+        User axx = await getUserById(msg.from);
+        print(axx.name);
+      }
     }
 
     print("Choose the chat");
     int? chosenContact = int.tryParse(stdin.readLineSync()!);
 
-    print("${user.contacts?[chosenContact!].name}");
+    print("${user1.contacts?[chosenContact!].name}");
 
     String currentFriendId =
-        await getUserIdByPhone(user.contacts![chosenContact!].phone);
+        await getUserIdByPhone(user1.contacts![chosenContact!].phone);
 
     print("Current friend id: $currentFriendId");
 
@@ -58,13 +64,13 @@ class TextingMenu extends Menu {
           List<Message>.from(jsonDecode(json).map((e) => Message.fromJson(e)));
       for (int i = 0; i < messages.length; i++) {
         if (messages[i].from == currentFriendId &&
-                messages[i].to.toString() == user.id &&
+                messages[i].to.toString() == user1.id &&
                 messages[i].timeSent.isAfter(lastMessage) ||
-            messages[i].from == user.id &&
+            messages[i].from == user1.id &&
                 messages[i].to.toString() == currentFriendId &&
                 messages[i].timeSent.isAfter(lastMessage)) {
           // |
-          if (messages[i].from == user.id) {
+          if (messages[i].from == user1.id) {
             String myText =
                 "${messages[i].text}  ${messages[i].timeSent.hour}:${messages[i].timeSent.minute}";
             fGreen(myText);
@@ -84,10 +90,10 @@ class TextingMenu extends Menu {
       // Simulate typing and sending a message
       String? text = stdin.readLineSync();
       if (text == 'exit') {
-        await Navigator.push(WelcomeMenu());
+        await Navigator.push(MainMenu());
       }
 
-      Message newMessage = Message(user.id, int.parse(currentFriendId), text!);
+      Message newMessage = Message(user1.id, int.parse(currentFriendId), text!);
       await NetworkService.postMessageData(newMessage);
     }
   }

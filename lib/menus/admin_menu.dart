@@ -6,7 +6,7 @@ import '../service/navigator__service.dart';
 import 'auth__menu.dart';
 import 'menu.dart';
 
-class WelcomeMenu extends Menu {
+class AdminMenu extends Menu {
   static const id = "/welcome_menu";
 
   @override
