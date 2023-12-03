@@ -23,28 +23,42 @@ class Registration extends Authentication {
     stdout.write("Name : ");
     String? name = stdin.readLineSync()!;
     String rang = rangUzgartir(name);
-
-    bool tekshir = true;
-    if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name)) {
-      tekshir = true;
-    } else {
-      tekshir = false;
-    }
-    while (tekshir) {
-      print("Please enter your name correctly");
-      stdout.write(" Name : ");
-      String? name1 = stdin.readLineSync()!;
-      name = name1;
-      break;
+    if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name)|| name.isEmpty){
+      bool tekshir = false;
+      while(!tekshir){
+        stdout.write("Tyr again : ");
+        String? namecheck = stdin.readLineSync();
+        if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(namecheck!) ||
+        namecheck.isEmpty){
+          name = namecheck;
+          tekshir = false;
+        }else {
+          tekshir = true;
+          name = namecheck;
+        }
+      }
     }
     String nickname = prompt("Nickname: ");
+    if(nickname.isEmpty){
+      bool tekshir = false;
+      while(!tekshir){
+        stdout.write("Tyr again : ");
+        String? nickcheck = stdin.readLineSync();
+        if(nickcheck!.isEmpty){
+          name = nickcheck;
+          tekshir = false;
+        }else {
+          tekshir = true;
+          name = nickcheck;
+        }
+      }
+    }
 
     stdout.write("Password: ");
     String? password = stdin.readLineSync()!;
 
     stdout.write("Phone: +998");
     String? phone = stdin.readLineSync()!;
-
     if (phone.length != 9 || !phone.startsWith('9')) {
       bool check = false;
       while (!check) {
