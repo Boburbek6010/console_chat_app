@@ -1,10 +1,10 @@
-import 'dart:io';
-import 'package:console_chat_app/menus/auth__menu.dart';
-import 'package:console_chat_app/menus/welcome__menu.dart';
 
+import 'dart:io';
 import '../models/user.dart';
 import '../service/navigator__service.dart';
 import '../service/network__service.dart';
+import 'auth__menu.dart';
+import 'welcome__menu.dart';
 
 class Registration extends Authentication {
   static User currentUser = User('0', '', '', '', '', true);
@@ -17,18 +17,17 @@ class Registration extends Authentication {
       String rang = '\x1B[31m$word\x1B[0m';
       return rang;
     }
-
     stdout.write("Name : ");
     String? name = stdin.readLineSync()!;
     String rang = rangUzgartir(name);
 
     bool tekshir = true;
-    if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name)) {
-      tekshir = true;
-    } else {
+    if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name))
+      {tekshir = true;
+      }else{
       tekshir = false;
     }
-    while (tekshir) {
+    while(tekshir){
       print("Please enter your name correctly");
       stdout.write(" Name : ");
       String? name1 = stdin.readLineSync()!;
