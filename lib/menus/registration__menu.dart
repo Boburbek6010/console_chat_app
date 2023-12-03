@@ -34,7 +34,7 @@ class Registration extends Authentication {
           checkname = false;
         }else {
           checkname = true;
-          name = namecheck;
+
         }
       }
     }
