@@ -8,7 +8,7 @@ class Message {
   late DateTime timeSent;
 
   Message(this.from, this.to, this.text) {
-    this.timeSent = DateTime.now();
+    this.timeSent = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, DateTime.now().hour, DateTime.now().minute, DateTime.now().second);
     a++;
     this.messageId = a;
   }

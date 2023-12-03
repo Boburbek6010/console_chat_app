@@ -12,8 +12,7 @@ class Authentication extends WelcomeMenu{
   build() async{
     print(
       '1. Registration\n'
-      '2. Log in\n'
-      '3. Go back\n'
+      '2. Log in'
     );
     String? menuSelection = stdin.readLineSync();
     
@@ -26,9 +25,6 @@ class Authentication extends WelcomeMenu{
         await Navigator.push(Login());
       }
       break;
-      case "3":{
-        await Navigator.push(WelcomeMenu());
-      }
     }
   }
 }

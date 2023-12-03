@@ -34,5 +34,4 @@ class NetworkService {
       headers: {'Content-Type': 'application/json'},
     );
   }
-
 }
