@@ -24,38 +24,38 @@ class Registration extends Authentication {
     String? name = stdin.readLineSync()!;
     String rang = rangUzgartir(name);
     if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(name)|| name.isEmpty){
-      bool tekshir = false;
-      while(!tekshir){
+      bool checkname = false;
+      while(!checkname){
         stdout.write("Tyr again : ");
         String? namecheck = stdin.readLineSync();
         if(RegExp(r'[0-9!@#%^&*(),.?":{}|<>]').hasMatch(namecheck!) ||
         namecheck.isEmpty){
           name = namecheck;
-          tekshir = false;
+          checkname = false;
         }else {
-          tekshir = true;
+          checkname = true;
           name = namecheck;
         }
       }
     }
     String nickname = prompt("Nickname: ");
     if(nickname.isEmpty){
-      bool tekshir = false;
-      while(!tekshir){
+      bool checknik = false;
+      while(!checknik){
         stdout.write("Tyr again : ");
         String? nickcheck = stdin.readLineSync();
         if(nickcheck!.isEmpty){
           name = nickcheck;
-          tekshir = false;
+          checknik = false;
         }else {
-          tekshir = true;
-          name = nickcheck;
+          checknik = true;
         }
       }
     }
 
     stdout.write("Password: ");
     String? password = stdin.readLineSync()!;
+
 
     stdout.write("Phone: +998");
     String? phone = stdin.readLineSync()!;
