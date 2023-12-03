@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
 
-import '../models/contact.dart';
 import '../models/message.dart';
 
 import '../models/user.dart';
@@ -18,12 +17,13 @@ class TextingMenu extends Menu {
 
   @override
   build() async {
-    String userData = await NetworkService.getData(NetworkService.apiUser);
-    List<User> users = (json.decode(userData) as List)
-        .map((json) => User.fromJson(json))
-        .toList();
+    // String userData = await NetworkService.getData(NetworkService.apiUser);
+    // List<User> users = (json.decode(userData) as List)
+    //     .map((json) => User.fromJson(json))
+    //     .toList();
 
-    String messageData = await NetworkService.getData(NetworkService.apiMessage);
+    String messageData =
+        await NetworkService.getData(NetworkService.apiMessage);
     List<Message> messages = (json.decode(messageData) as List)
         .map((json) => Message.fromJson(json))
         .toList();
@@ -39,9 +39,9 @@ class TextingMenu extends Menu {
     for (Message msg in messages) {
       bool yoyo = await isMyContact(user1.contacts, msg.from);
       if (msg.to.toString() == user1.id && !yoyo) {
-        print("You have messages from strangers");
+        print("You have messages from strangers. Add them to your contacts list to chat with them.");
         User axx = await getUserById(msg.from);
-        print(axx.name);
+        print("${axx.name} ${axx.phone}");
       }
     }
 
@@ -69,7 +69,7 @@ class TextingMenu extends Menu {
             messages[i].from == user1.id &&
                 messages[i].to.toString() == currentFriendId &&
                 messages[i].timeSent.isAfter(lastMessage)) {
-          // |
+
           if (messages[i].from == user1.id) {
             String myText =
                 "${messages[i].text}  ${messages[i].timeSent.hour}:${messages[i].timeSent.minute}";

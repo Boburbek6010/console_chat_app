@@ -1,11 +1,8 @@
 import 'dart:io';
+import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/service/navigator__service.dart';
 import 'package:console_chat_app/service/network__service.dart';
-
-
-
-import 'welcome__menu.dart';
 
 class SettingMenu extends Menu {
   static const id = "/setting_manu";
@@ -63,7 +60,7 @@ class SettingMenu extends Menu {
         break;
       case "5":
         {
-          await Navigator.push((WelcomeMenu()));
+          await Navigator.push((MainMenu()));
         }
         break;
     }
