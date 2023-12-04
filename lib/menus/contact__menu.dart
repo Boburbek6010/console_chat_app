@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:console_chat_app/service/extension_colors.dart';
+
 import '../service/navigator__service.dart';
 import 'add_contacts__menu.dart';
 import 'contacts_list__menu.dart';
@@ -9,9 +11,11 @@ class ContactMenu extends Menu {
 
   @override
   build() async {
-    print("Contacts Menu");
-    print("1. Contacts List\n"
-        "2. Add Contact");
+    fGreen("╔══════════════════╗");
+    fGreen("║ Contacts Menu    ║");
+    fGreen("║ 1. Contacts List ║");
+    fGreen("║ 2. Add Contact   ║");
+    fGreen("╚══════════════════╝");
 
     String? menuSelection = stdin.readLineSync();
 

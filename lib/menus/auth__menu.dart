@@ -3,6 +3,7 @@ import 'package:console_chat_app/menus/login__menu.dart';
 import 'package:console_chat_app/menus/registration__menu.dart';
 import 'package:console_chat_app/menus/userList__menu.dart';
 import 'package:console_chat_app/menus/main__menu.dart';
+import 'package:console_chat_app/service/extension_colors.dart';
 import 'package:console_chat_app/service/navigator__service.dart';
 
 class Authentication extends MainMenu{
@@ -10,10 +11,10 @@ class Authentication extends MainMenu{
 
   @override
   build() async{
-    print(
-      '1. Registration\n'
-      '2. Log in'
-    );
+    fGreen("╔══════════════════╗");
+    fGreen('║ 1. Registration  ║');
+    fGreen('║ 2. Log in        ║');
+    fGreen("╚══════════════════╝");
     String? menuSelection = stdin.readLineSync();
     
     switch(menuSelection){

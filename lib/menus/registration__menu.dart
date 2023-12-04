@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:console_chat_app/menus/auth__menu.dart';
 import 'package:console_chat_app/menus/main__menu.dart';
+import 'package:console_chat_app/service/extension_colors.dart';
 
 import '../models/user.dart';
 import '../service/navigator__service.dart';
@@ -84,7 +85,7 @@ class Registration extends Authentication {
     Menu.user = newUser;
 
     await NetworkService.postData(newUser);
-    print('New User created: $name');
+    fRed('New User created: $name');
     Navigator.push(MainMenu());
   }
 

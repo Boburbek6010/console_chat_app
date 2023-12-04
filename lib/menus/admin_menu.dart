@@ -1,5 +1,6 @@
 import 'package:console_chat_app/menus/contact__menu.dart';
 import 'package:console_chat_app/menus/texting__menu.dart';
+import 'package:console_chat_app/service/extension_colors.dart';
 
 import '../menus/userList__menu.dart';
 import 'dart:io';
@@ -12,13 +13,15 @@ class AdminMenu extends Menu {
 
   @override
   build() async {
-    print("Select menu:\n"
-        "1. User List Menu\n"
-        "2. Authentication\n"
-        "3. Settings\n"
-        "4. Chats\n"
-        "5. Contacts\n"
-        "6. Exit\n");
+    fGreen("╔═════════════════════╗");
+    fGreen("║ Select menu:        ║");
+    fGreen("║ 1. User List Menu   ║");
+    fGreen("║ 2. Authentication   ║");
+    fGreen("║ 3. Settings         ║");
+    fGreen("║ 4. Chats            ║");
+    fGreen("║ 5. Contacts         ║");
+    fGreen("║ 6. Exit             ║");
+    fGreen("╚═════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
     switch (menuSelection) {

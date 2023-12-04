@@ -1,5 +1,7 @@
 import 'package:console_chat_app/menus/contact__menu.dart';
+import 'package:console_chat_app/menus/setting_manu.dart';
 import 'package:console_chat_app/menus/texting__menu.dart';
+import 'package:console_chat_app/service/extension_colors.dart';
 
 import '../menus/userList__menu.dart';
 import 'dart:io';
@@ -12,12 +14,14 @@ class MainMenu extends Menu {
 
   @override
   build() async {
-    print("Select menu:\n"
-        "1. Authentication\n"
-        "2. Settings\n"
-        "3. Chats\n"
-        "4. Contacts\n"
-        "5. Exit\n");
+    fGreen("╔════════════════════╗");
+    fGreen("║ Select menu:       ║");
+    fGreen("║ 1. Authentication  ║");
+    fGreen("║ 2. Settings        ║");
+    fGreen("║ 3. Chats           ║");
+    fGreen("║ 4. Contacts        ║");
+    fGreen("║ 5. Exit            ║");
+    fGreen("╚════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
     switch (menuSelection) {
@@ -28,7 +32,7 @@ class MainMenu extends Menu {
         break;
       case "2":
         {
-          await Navigator.push(UserListMenu());
+          await Navigator.push(SettingMenu());
         }
         break;
       case "3":

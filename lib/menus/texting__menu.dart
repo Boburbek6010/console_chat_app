@@ -29,11 +29,11 @@ class TextingMenu extends Menu {
         .toList();
 
     User user1 = Menu.user;
-
-    print("Contacts list:\n");
-    print("Choose the chat");
-    print("type any character to exit");
-
+    fGreen("╔════════════════════════════╗");
+    fGreen("║ Contacts list:             ║");
+    fGreen("║ Choose the chat            ║");
+    fGreen("║ Type any character to exit ║ ");
+    fGreen("╚════════════════════════════╝");
     for (int i = 0; i < user1.contacts!.length; i++) {
       print('${i + 1} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
     }
