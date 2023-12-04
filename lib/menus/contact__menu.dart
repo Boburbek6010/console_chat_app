@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:console_chat_app/menus/main__menu.dart';
+
 import '../service/navigator__service.dart';
 import 'add_contacts__menu.dart';
 import 'contacts_list__menu.dart';
@@ -11,7 +13,8 @@ class ContactMenu extends Menu {
   build() async {
     print("Contacts Menu");
     print("1. Contacts List\n"
-        "2. Add Contact");
+        "2. Add Contact\n"
+        "0. Exit");
 
     String? menuSelection = stdin.readLineSync();
 
@@ -24,6 +27,11 @@ class ContactMenu extends Menu {
       case "2":
         {
           await Navigator.push(AddContactMenu());
+        }
+        break;
+      default:
+        {
+          await Navigator.push(MainMenu());
         }
         break;
     }
