@@ -10,7 +10,7 @@ import 'package:console_chat_app/service/navigator__service.dart';
 void main() async {
 
   await Navigator.push(Authentication());
-
+ 
   MyApp(
     home: MainMenu(),
     routes: {
