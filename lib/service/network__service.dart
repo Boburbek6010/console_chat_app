@@ -33,7 +33,7 @@ class NetworkService {
   }
 
   static Future<bool> deleteUser(String id) async {
-    Uri url = Uri.http(baseUrl, "/Users$id");
+    Uri url = Uri.http(baseUrl, "/Users/$id");
     Response response =
         await delete(url, headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200 || response.statusCode == 201) {

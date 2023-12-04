@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:console_chat_app/models/contact.dart';
 
 import '../models/user.dart';
+import '../service/navigator__service.dart';
 import '../service/network__service.dart';
+import 'contact__menu.dart';
 import 'menu.dart';
 
 class AddContactMenu extends Menu {
@@ -38,20 +40,28 @@ class AddContactMenu extends Menu {
       } else if (!numberValidator(phone)) {
         print("Invalid input. Please try again. Example: 911234567");
         stdout.write("Phone number: +998");
-      } else if (!await doesNumberExist(phone)) {
+      } else if (!await doesNumberExist("+998${phone}")) {
         print(
-            "Your contact has not registered in our app yet ):(type 'exit' to quit)");
-      } else if (phone == "exit") {
-        break;
+            "Your contact has not registered in our app yet (type 'exit' to quit)");
+        stdout.write("Phone number: +998");
       }
-    }
+      else if (await doesNumberExistInContacts("+998${phone}", currentUser.contacts!)) {
+        print(
+            "You already has this contact (type 'exit' to quit)");
+      }
+      else if (phone == "exit") {
+        break;
+      } else {
+        currentUser.contacts?.add(Contacts(name, "+998$phone"));
 
-    currentUser.contacts?.add(Contacts(name, phone));
-
-    if (await NetworkService.deleteUser(currentUser.id)) {
-      NetworkService.postData(currentUser);
-    } else {
-      print("Smth went wrong");
+        if (await NetworkService.deleteUser(currentUser.id)) {
+          await NetworkService.postData(currentUser);
+          print("Contact added successfully");
+        } else {
+          print("Smth went wrong");
+        }
+        await Navigator.push(ContactMenu());
+      }
     }
   }
 
@@ -68,6 +78,15 @@ class AddContactMenu extends Menu {
 
     for (User user in users) {
       if (user.phone == phoneNumber) toReturn = true;
+    }
+    return toReturn;
+  }
+
+  Future<bool> doesNumberExistInContacts(String phoneNumber, List<Contacts> contacts) async {
+    bool toReturn = false;
+
+    for (Contacts c in contacts) {
+      if (c.phone == phoneNumber) toReturn = true;
     }
     return toReturn;
   }

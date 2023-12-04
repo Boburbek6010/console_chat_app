@@ -31,70 +31,76 @@ class TextingMenu extends Menu {
     User user1 = Menu.user;
 
     print("Contacts list:\n");
+    print("Choose the chat");
+    print("type any character to exit");
 
     for (int i = 0; i < user1.contacts!.length; i++) {
-      print('${i} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
+      print('${i + 1} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
     }
 
+    /// strangers list
     for (Message msg in messages) {
       bool yoyo = await isMyContact(user1.contacts, msg.from);
       if (msg.to.toString() == user1.id && !yoyo) {
-        print("You have messages from strangers. Add them to your contacts list to chat with them.");
+        print(
+            "You have messages from strangers. Add them to your contacts list to chat with them.");
         User axx = await getUserById(msg.from);
         print("${axx.name} ${axx.phone}");
       }
     }
 
-    print("Choose the chat");
-    int? chosenContact = int.tryParse(stdin.readLineSync()!);
+    int? chosenContact = int.tryParse(stdin.readLineSync()!)! - 1;
 
-    print("${user1.contacts?[chosenContact!].name}");
+    if (chosenContact >= 0 && chosenContact <= user1.contacts!.length) {
+      print("${user1.contacts?[chosenContact].name}");
+      String currentFriendId =
+          await getUserIdByPhone(user1.contacts![chosenContact].phone);
 
-    String currentFriendId =
-        await getUserIdByPhone(user1.contacts![chosenContact!].phone);
+      // print("Current friend id: $currentFriendId");
 
-    print("Current friend id: $currentFriendId");
+      DateTime lastMessage = DateTime(2022, 12, 2, 12, 12, 12);
 
-    DateTime lastMessage = DateTime(2022, 12, 2, 12, 12, 12);
-
-    print("Type a message (type 'exit' to stop):");
-    while (true) {
-      String json = await NetworkService.getData(NetworkService.apiMessage);
-      List<Message> messages =
-          List<Message>.from(jsonDecode(json).map((e) => Message.fromJson(e)));
-      for (int i = 0; i < messages.length; i++) {
-        if (messages[i].from == currentFriendId &&
-                messages[i].to.toString() == user1.id &&
-                messages[i].timeSent.isAfter(lastMessage) ||
-            messages[i].from == user1.id &&
-                messages[i].to.toString() == currentFriendId &&
-                messages[i].timeSent.isAfter(lastMessage)) {
-
-          if (messages[i].from == user1.id) {
-            String myText =
-                "${messages[i].text}  ${messages[i].timeSent.hour}:${messages[i].timeSent.minute}";
-            fGreen(myText);
-          } else if (messages[i].from == currentFriendId) {
-            String theirText =
-                "${messages[i].text}  ${messages[i].timeSent.hour}:${messages[i].timeSent.minute}";
-            int consoleWidth = 80;
-            int spaces = consoleWidth - theirText.length;
-            String rightAlignedText =
-                theirText.padLeft(spaces + theirText.length);
-            fRed(rightAlignedText);
+      print("Type a message (type 'exit' to stop):");
+      while (true) {
+        String json = await NetworkService.getData(NetworkService.apiMessage);
+        List<Message> messages = List<Message>.from(
+            jsonDecode(json).map((e) => Message.fromJson(e)));
+        for (int i = 0; i < messages.length; i++) {
+          if (messages[i].from == currentFriendId &&
+                  messages[i].to.toString() == user1.id &&
+                  messages[i].timeSent.isAfter(lastMessage) ||
+              messages[i].from == user1.id &&
+                  messages[i].to.toString() == currentFriendId &&
+                  messages[i].timeSent.isAfter(lastMessage)) {
+            if (messages[i].from == user1.id) {
+              String myText =
+                  "${messages[i].text}  ${messages[i].timeSent.hour}:${messages[i].timeSent.minute}";
+              fGreen(myText);
+            } else if (messages[i].from == currentFriendId) {
+              String theirText =
+                  "${messages[i].text}  ${messages[i].timeSent.hour}:${messages[i].timeSent.minute}";
+              int consoleWidth = 80;
+              int spaces = consoleWidth - theirText.length;
+              String rightAlignedText =
+                  theirText.padLeft(spaces + theirText.length);
+              fRed(rightAlignedText);
+            }
+            lastMessage = messages[i].timeSent;
           }
-          lastMessage = messages[i].timeSent;
         }
-      }
 
-      // Simulate typing and sending a message
-      String? text = stdin.readLineSync();
-      if (text == 'exit') {
-        await Navigator.push(MainMenu());
-      }
+        // Simulate typing and sending a message
+        String? text = stdin.readLineSync();
+        if (text == 'exit') {
+          await Navigator.push(MainMenu());
+        }
 
-      Message newMessage = Message(user1.id, int.parse(currentFriendId), text!);
-      await NetworkService.postMessageData(newMessage);
+        Message newMessage =
+            Message(user1.id, int.parse(currentFriendId), text!);
+        await NetworkService.postMessageData(newMessage);
+      }
+    } else {
+      await Navigator.push(MainMenu());
     }
   }
 }
