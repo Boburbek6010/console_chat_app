@@ -34,7 +34,10 @@ class AddContactMenu extends Menu {
 
     while (!isValidPhoneNumber) {
       phone = stdin.readLineSync()!;
-      if (phone.isEmpty) {
+      if(phone == "exit"){
+        await Navigator.push(ContactMenu());
+      }
+      else if (phone.isEmpty) {
         print("Phone number cannot be empty. Please try again.");
         stdout.write("Phone number: +998");
       } else if (!numberValidator(phone)) {

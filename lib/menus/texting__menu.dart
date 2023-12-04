@@ -31,12 +31,13 @@ class TextingMenu extends Menu {
     User user1 = Menu.user;
     fGreen("╔════════════════════════════╗");
     fGreen("║ Contacts list:             ║");
-    fGreen("║ Choose the chat            ║");
     fGreen("║ Type any character to exit ║ ");
     fGreen("╚════════════════════════════╝");
     for (int i = 0; i < user1.contacts!.length; i++) {
       print('${i + 1} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
     }
+
+    print("Looking for messages from strangers ...");
 
     /// strangers list
     for (Message msg in messages) {
@@ -48,6 +49,8 @@ class TextingMenu extends Menu {
         print("${axx.name} ${axx.phone}");
       }
     }
+
+    stdout.write("Choose the chat: ");
 
     int? chosenContact = int.tryParse(stdin.readLineSync()!)! - 1;
 
@@ -92,14 +95,15 @@ class TextingMenu extends Menu {
         // Simulate typing and sending a message
         String? text = stdin.readLineSync();
         if (text == 'exit') {
-          await Navigator.push(MainMenu());
+          await Navigator.push(TextingMenu());
         }
 
         Message newMessage =
             Message(user1.id, int.parse(currentFriendId), text!);
         await NetworkService.postMessageData(newMessage);
       }
-    } else {
+    }
+    else {
       await Navigator.push(MainMenu());
     }
   }
