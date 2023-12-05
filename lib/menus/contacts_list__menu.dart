@@ -21,7 +21,6 @@ class ContactsListMenu extends Menu {
     }
     fGreen("╔════════════════════╗");
     fGreen("║ 1. Delete contact  ║");
-    fGreen("║ 2. Edit contact    ║");
     fGreen("╚════════════════════╝");
     String? userInput = stdin.readLineSync();
 
@@ -30,11 +29,6 @@ class ContactsListMenu extends Menu {
         print("Enter the index of the contact to delete:");
         int? deleteIndex = int.tryParse(stdin.readLineSync() ?? '');
         deleteContact(deleteIndex);
-        break;
-      case '2':
-        print("Enter the index of the contact to edit:");
-        int? editIndex = int.tryParse(stdin.readLineSync() ?? '');
-        editContact(editIndex);
         break;
       default:
         print("Invalid option.");
@@ -50,19 +44,6 @@ class ContactsListMenu extends Menu {
       print("Deleting contact: ${contacts[index].name}");
       contacts.removeAt(index);
       print("Contact deleted successfully.");
-    } else {
-      print("Invalid index. Contact not found.");
-    }
-  }
-
-  void editContact(int? index) {
-    User currentUser = Menu.user;
-    List<Contacts>? contacts = currentUser.contacts;
-
-    if (index != null && index >= 0 && index < contacts!.length) {
-      print("Editing contact: ${contacts[index].name}");
-
-      print("Contact edited successfully.");
     } else {
       print("Invalid index. Contact not found.");
     }
