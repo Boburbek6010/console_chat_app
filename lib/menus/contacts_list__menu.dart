@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:console_chat_app/menus/contact__menu.dart';
 import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
+import 'package:console_chat_app/service/navigator__service.dart';
 
 import '../models/contact.dart';
 import '../models/user.dart';
@@ -21,6 +23,7 @@ class ContactsListMenu extends Menu {
     }
     fGreen("╔════════════════════╗");
     fGreen("║ 1. Delete contact  ║");
+    fGreen("║ 2. Back to list    ║");
     fGreen("╚════════════════════╝");
     String? userInput = stdin.readLineSync();
 
@@ -29,6 +32,9 @@ class ContactsListMenu extends Menu {
         print("Enter the index of the contact to delete:");
         int? deleteIndex = int.tryParse(stdin.readLineSync() ?? '');
         deleteContact(deleteIndex);
+        break;
+      case '2':
+        Navigator.push(ContactMenu());
         break;
       default:
         print("Invalid option.");
