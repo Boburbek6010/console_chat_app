@@ -30,10 +30,10 @@ class TextingMenu extends Menu {
         .toList();
 
     User user1 = Menu.user;
-    fGreen("╔════════════════════════════╗");
-    fGreen("║ ${'contacts_list'.tr}:             ║");
-    fGreen("║ ${'anyexit'.tr} ║ ");
-    fGreen("╚════════════════════════════╝");
+    fGreen("╔═══════════════════════════╗");
+    fGreen("║ ${'contacts_list'.tr}:    ║");
+    fGreen("║ ${'anyexit'.tr}           ║ ");
+    fGreen("╚═══════════════════════════╝");
     for (int i = 0; i < user1.contacts!.length; i++) {
       print('${i + 1} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
     }

@@ -15,12 +15,12 @@ class ContactMenu extends Menu {
 
   @override
   build() async {
-    fGreen("╔══════════════════╗");
-    fGreen("║ ${'contact_menu'.tr}    ║");
+    fGreen("╔══════════════════════════╗");
+    fGreen("║ ${'contact_menu'.tr}     ║");
     fGreen("║ 1. ${'contacts_list'.tr} ║");
     fGreen("║ 2. ${'add_contact'.tr}   ║");
     fGreen("║ 0. ${'exit'.tr}          ║");
-    fGreen("╚══════════════════╝");
+    fGreen("╚══════════════════════════╝");
 
     String? menuSelection = stdin.readLineSync();
 

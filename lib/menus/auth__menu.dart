@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:console_chat_app/menus/login__menu.dart';
 import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/menus/registration__menu.dart';
-import 'package:console_chat_app/menus/userList__menu.dart';
 import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
 import 'package:console_chat_app/service/extension_service.dart';
@@ -13,10 +12,10 @@ class Authentication extends MainMenu {
 
   @override
   build() async {
-    fGreen("╔══════════════════╗");
+    fGreen("╔══════════════════════════╗");
     fGreen('║ 1. ${'registration'.tr}  ║');
-    fGreen('║ 2. ${'login'.tr}        ║');
-    fGreen("╚══════════════════╝");
+    fGreen('║ 2. ${'login'.tr}         ║');
+    fGreen("╚══════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
     switch (menuSelection) {
@@ -30,7 +29,7 @@ class Authentication extends MainMenu {
           await Navigator.push(Login());
         }
       default:
-        print("Invalid option.");
+        fRed("Invalid option.");
         await Navigator.push(Authentication());
         break;
     }

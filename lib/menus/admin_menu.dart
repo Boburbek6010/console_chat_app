@@ -15,15 +15,15 @@ class AdminMenu extends Menu {
 
   @override
   build() async {
-    fGreen("╔═════════════════════╗");
-    fGreen("║ Select menu:        ║");
-    fGreen("║ 1. ${'list_users'.tr}   ║");
+    fGreen("╔═════════════════════════════╗");
+    fGreen("║ Select menu:                ║");
+    fGreen("║ 1. ${'list_users'.tr}       ║");
     fGreen("║ 2. ${'authentication'.tr}   ║");
     fGreen("║ 3. ${'settings'.tr}         ║");
     fGreen("║ 4. ${'chats'.tr}            ║");
-    fGreen("║ 5. ${'contacts_list'.tr}         ║");
+    fGreen("║ 5. ${'contacts_list'.tr}    ║");
     fGreen("║ 6. ${'exit'.tr}             ║");
-    fGreen("╚═════════════════════╝");
+    fGreen("╚═════════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
     switch (menuSelection) {

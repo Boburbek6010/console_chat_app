@@ -4,7 +4,6 @@ import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
 import 'package:console_chat_app/service/extension_service.dart';
 import 'package:console_chat_app/service/navigator__service.dart';
-import 'package:console_chat_app/service/network__service.dart';
 
 class SettingMenu extends Menu {
   static const id = "/setting_manu";
@@ -14,14 +13,14 @@ class SettingMenu extends Menu {
   build() async {
 /*    String data1 = await NetworkService.getData(NetworkService.apiUser);
     print(data1);*/
-    fGreen("╔══════════════════════╗");
-    fGreen("║ Choose menu:         ║");
-    fGreen("║ 1. ${'change_name'.tr}       ║");
+    fGreen("╔═══════════════════════════╗");
+    fGreen("║ Choose menu:              ║");
+    fGreen("║ 1. ${'change_name'.tr}    ║");
     fGreen("║ 2. ${'change_nick'.tr}    ║");
-    fGreen("║ 3. ${'change_pass'.tr}   ║");
-    fGreen("║ 4. ${'change_phone'.tr}      ║");
-    fGreen("║ 5. ${'go_back'.tr}           ║");
-    fGreen("╚══════════════════════╝");
+    fGreen("║ 3. ${'change_pass'.tr}    ║");
+    fGreen("║ 4. ${'change_phone'.tr}   ║");
+    fGreen("║ 5. ${'go_back'.tr}        ║");
+    fGreen("╚═══════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
 

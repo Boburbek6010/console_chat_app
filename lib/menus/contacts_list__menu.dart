@@ -20,10 +20,10 @@ class ContactsListMenu extends Menu {
     for (int i = 0; i < contacts!.length; i++) {
       print("${contacts[i].name}  ${contacts[i].phone}");
     }
-    fGreen("╔════════════════════╗");
+    fGreen("╔════════════════════════════╗");
     fGreen("║ 1. ${'delate_contact'.tr}  ║");
     fGreen("║ 2. ${'edit_contact'.tr}    ║");
-    fGreen("╚════════════════════╝");
+    fGreen("╚════════════════════════════╝");
     String? userInput = stdin.readLineSync();
 
     switch (userInput) {
@@ -38,7 +38,7 @@ class ContactsListMenu extends Menu {
         editContact(editIndex);
         break;
       default:
-        print("invalid_input".tr);
+        fRed("invalid_input".tr);
         break;
     }
   }
