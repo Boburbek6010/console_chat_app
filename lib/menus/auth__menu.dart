@@ -13,8 +13,8 @@ class Authentication extends MainMenu {
   @override
   build() async {
     fGreen("╔══════════════════════════╗");
-    fGreen('║ 1. ${'registration'.tr}  ║');
-    fGreen('║ 2. ${'login'.tr}         ║');
+    fGreen('║ 1. ${'registration'.tr}          ║');
+    fGreen('║ 2. ${'login'.tr}                ║');
     fGreen("╚══════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 

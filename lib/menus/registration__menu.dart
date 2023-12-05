@@ -23,7 +23,7 @@ class Registration extends Authentication {
     stdout.write("${'name'.tr}: ");
     String? name = stdin.readLineSync();
     while (!isValidName(name!)) {
-      print('${'invalid_input'.tr}.');
+      fRed('${'invalid_input'.tr}.');
       stdout.write("${'name'.tr}: ");
       name = stdin.readLineSync()!;
     }
@@ -36,11 +36,11 @@ class Registration extends Authentication {
       username = stdin.readLineSync()!;
 
       if (username.isEmpty) {
-        print("empty_username".tr);
+        fRed("empty_username".tr);
       } else {
         isValidUsername = !users.any((user) => user.nickName == username);
         if (!isValidUsername) {
-          print(
+          fBlue(
               "${'nick_name'.tr} '$username' ${'taken'.tr}");
           stdout.write("${'nick_name'.tr}: ");
         }
@@ -54,7 +54,7 @@ class Registration extends Authentication {
       password = stdin.readLineSync()!;
 
       if (password.isEmpty || password.length < 4) {
-        print('empty_pass_try'.tr);
+        fRed('empty_pass_try'.tr);
         stdout.write("${'enter_pass'.tr}: ");
       }
     }
@@ -67,9 +67,9 @@ class Registration extends Authentication {
       phone = stdin.readLineSync()!;
 
       if (phone.isEmpty) {
-        print("hatolik1".tr);
+        fRed("hatolik1".tr);
       } else if (!numberValidator(phone)) {
-        print("${'ivalidbruh'}: 911234567");
+        fBlue("${'ivalidbruh'}: 911234567");
         stdout.write("${'phone'.tr}: +998");
       } else {
         isValidPhoneNumber = !users.any((user) => user.phone == phone);

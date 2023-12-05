@@ -17,11 +17,11 @@ class MainMenu extends Menu {
   build() async {
     fGreen("╔════════════════════════════╗");
     fGreen("║ Select menu:               ║");
-    fGreen("║ 1. ${"authentication".tr}  ║");
-    fGreen("║ 2. ${'settings'.tr}        ║");
-    fGreen("║ 3. ${'chats'.tr}           ║");
-    fGreen("║ 4. ${'contacts_list'.tr}   ║");
-    fGreen("║ 5. ${'exit'.tr}            ║");
+    fGreen("║ 1. ${"authentication".tr}          ║");
+    fGreen("║ 2. ${'settings'.tr}                ║");
+    fGreen("║ 3. ${'chats'.tr}                   ║");
+    fGreen("║ 4. ${'contacts_list'.tr}           ║");
+    fGreen("║ 5. ${'exit'.tr}                    ║");
     fGreen("╚════════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 

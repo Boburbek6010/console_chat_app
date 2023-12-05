@@ -17,12 +17,12 @@ class AdminMenu extends Menu {
   build() async {
     fGreen("╔═════════════════════════════╗");
     fGreen("║ Select menu:                ║");
-    fGreen("║ 1. ${'list_users'.tr}       ║");
-    fGreen("║ 2. ${'authentication'.tr}   ║");
-    fGreen("║ 3. ${'settings'.tr}         ║");
-    fGreen("║ 4. ${'chats'.tr}            ║");
-    fGreen("║ 5. ${'contacts_list'.tr}    ║");
-    fGreen("║ 6. ${'exit'.tr}             ║");
+    fGreen("║ 1. ${'list_users'.tr}             ║");
+    fGreen("║ 2. ${'authentication'.tr}         ║");
+    fGreen("║ 3. ${'settings'.tr}               ║");
+    fGreen("║ 4. ${'chats'.tr}                  ║");
+    fGreen("║ 5. ${'contacts_list'.tr}          ║");
+    fGreen("║ 6. ${'exit'.tr}                   ║");
     fGreen("╚═════════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 

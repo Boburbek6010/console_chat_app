@@ -21,8 +21,8 @@ class ContactsListMenu extends Menu {
       print("${contacts[i].name}  ${contacts[i].phone}");
     }
     fGreen("╔════════════════════════════╗");
-    fGreen("║ 1. ${'delate_contact'.tr}  ║");
-    fGreen("║ 2. ${'edit_contact'.tr}    ║");
+    fGreen("║ 1. ${'delate_contact'.tr}          ║");
+    fGreen("║ 2. ${'edit_contact'.tr}            ║");
     fGreen("╚════════════════════════════╝");
     String? userInput = stdin.readLineSync();
 

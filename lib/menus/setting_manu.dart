@@ -15,11 +15,11 @@ class SettingMenu extends Menu {
     print(data1);*/
     fGreen("╔═══════════════════════════╗");
     fGreen("║ Choose menu:              ║");
-    fGreen("║ 1. ${'change_name'.tr}    ║");
-    fGreen("║ 2. ${'change_nick'.tr}    ║");
-    fGreen("║ 3. ${'change_pass'.tr}    ║");
-    fGreen("║ 4. ${'change_phone'.tr}   ║");
-    fGreen("║ 5. ${'go_back'.tr}        ║");
+    fGreen("║ 1. ${'change_name'.tr}            ║");
+    fGreen("║ 2. ${'change_nick'.tr}        ║");
+    fGreen("║ 3. ${'change_pass'.tr}        ║");
+    fGreen("║ 4. ${'change_phone'.tr}           ║");
+    fGreen("║ 5. ${'go_back'.tr}                ║");
     fGreen("╚═══════════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
