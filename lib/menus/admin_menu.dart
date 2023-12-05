@@ -1,4 +1,5 @@
 import 'package:console_chat_app/menus/contact__menu.dart';
+import 'package:console_chat_app/menus/setting_manu.dart';
 import 'package:console_chat_app/menus/texting__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
 
@@ -37,7 +38,7 @@ class AdminMenu extends Menu {
         break;
       case "3":
         {
-          await Navigator.push(UserListMenu());
+          await Navigator.push(SettingMenu());
         }
         break;
       case "4":
