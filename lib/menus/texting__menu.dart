@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
+import 'package:console_chat_app/service/extension_service.dart';
 
 import '../models/message.dart';
 
@@ -30,27 +31,27 @@ class TextingMenu extends Menu {
 
     User user1 = Menu.user;
     fGreen("╔════════════════════════════╗");
-    fGreen("║ Contacts list:             ║");
-    fGreen("║ Type any character to exit ║ ");
+    fGreen("║ ${'contacts_list'.tr}:             ║");
+    fGreen("║ ${'anyexit'.tr} ║ ");
     fGreen("╚════════════════════════════╝");
     for (int i = 0; i < user1.contacts!.length; i++) {
       print('${i + 1} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
     }
 
-    print("Looking for messages from strangers ...");
+    print("${'massagelf'.tr} ...");
 
     /// strangers list
     for (Message msg in messages) {
       bool yoyo = await isMyContact(user1.contacts, msg.from);
       if (msg.to.toString() == user1.id && !yoyo) {
         print(
-            "You have messages from strangers. Add them to your contacts list to chat with them.");
+            "m".tr);
         User axx = await getUserById(msg.from);
         print("${axx.name} ${axx.phone}");
       }
     }
 
-    stdout.write("Choose the chat: ");
+    stdout.write("${'choose_chat'.tr}: ");
 
     int? chosenContact = int.tryParse(stdin.readLineSync()!)! - 1;
 
@@ -63,7 +64,7 @@ class TextingMenu extends Menu {
 
       DateTime lastMessage = DateTime(2022, 12, 2, 12, 12, 12);
 
-      print("Type a message (type 'exit' to stop):");
+      print("${'type_close'.tr}:");
       while (true) {
         String json = await NetworkService.getData(NetworkService.apiMessage);
         List<Message> messages = List<Message>.from(
@@ -94,7 +95,7 @@ class TextingMenu extends Menu {
 
         // Simulate typing and sending a message
         String? text = stdin.readLineSync();
-        if (text == 'exit') {
+        if (text == 'exit'.tr) {
           await Navigator.push(TextingMenu());
         }
 

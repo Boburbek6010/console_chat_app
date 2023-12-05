@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:console_chat_app/menus/contact__menu.dart';
 import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
-import 'package:console_chat_app/service/navigator__service.dart';
+import 'package:console_chat_app/service/extension_service.dart';
 
 import '../models/contact.dart';
 import '../models/user.dart';
@@ -22,22 +21,24 @@ class ContactsListMenu extends Menu {
       print("${contacts[i].name}  ${contacts[i].phone}");
     }
     fGreen("╔════════════════════╗");
-    fGreen("║ 1. Delete contact  ║");
-    fGreen("║ 2. Back to list    ║");
+    fGreen("║ 1. ${'delate_contact'.tr}  ║");
+    fGreen("║ 2. ${'edit_contact'.tr}    ║");
     fGreen("╚════════════════════╝");
     String? userInput = stdin.readLineSync();
 
     switch (userInput) {
       case '1':
-        print("Enter the index of the contact to delete:");
+        print("${'input_delate_index'.tr}:");
         int? deleteIndex = int.tryParse(stdin.readLineSync() ?? '');
         deleteContact(deleteIndex);
         break;
       case '2':
-        Navigator.push(ContactMenu());
+        print("${'input_edit_index'.tr}:");
+        int? editIndex = int.tryParse(stdin.readLineSync() ?? '');
+        editContact(editIndex);
         break;
       default:
-        print("Invalid option.");
+        print("invalid_input".tr);
         break;
     }
   }
@@ -47,11 +48,24 @@ class ContactsListMenu extends Menu {
     List<Contacts>? contacts = currentUser.contacts;
 
     if (index != null && index >= 0 && index < contacts!.length) {
-      print("Deleting contact: ${contacts[index].name}");
+      print("${'deletingc'.tr}: ${contacts[index].name}");
       contacts.removeAt(index);
-      print("Contact deleted successfully.");
+      print("success_delate".tr);
     } else {
-      print("Invalid index. Contact not found.");
+      print("invalid_input".tr);
+    }
+  }
+
+  void editContact(int? index) {
+    User currentUser = Menu.user;
+    List<Contacts>? contacts = currentUser.contacts;
+
+    if (index != null && index >= 0 && index < contacts!.length) {
+      print("${'editingcon'.tr}: ${contacts[index].name}");
+
+      print("success_edit".tr);
+    } else {
+      print("invalid_input".tr);
     }
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:console_chat_app/menus/auth__menu.dart';
 import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
+import 'package:console_chat_app/service/extension_service.dart';
 
 import '../models/user.dart';
 import '../service/navigator__service.dart';
@@ -19,15 +20,15 @@ class Registration extends Authentication {
     List<User> users =
         (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
 
-    stdout.write("Name: ");
+    stdout.write("${'name'.tr}: ");
     String? name = stdin.readLineSync();
     while (!isValidName(name!)) {
-      print('Invalid input. Please try again.');
-      stdout.write("Name: ");
+      print('${'invalid_input'.tr}.');
+      stdout.write("${'name'.tr}: ");
       name = stdin.readLineSync()!;
     }
 
-    stdout.write("Username: ");
+    stdout.write("${'nick_name'.tr}: ");
     String username = "";
     bool isValidUsername = false;
 
@@ -35,30 +36,30 @@ class Registration extends Authentication {
       username = stdin.readLineSync()!;
 
       if (username.isEmpty) {
-        print("Username cannot be empty. Please try again.");
+        print("empty_username".tr);
       } else {
         isValidUsername = !users.any((user) => user.nickName == username);
         if (!isValidUsername) {
           print(
-              "Username '$username' is already taken. Please choose another one.");
-          stdout.write("Username: ");
+              "${'nick_name'.tr} '$username' ${'taken'.tr}");
+          stdout.write("${'nick_name'.tr}: ");
         }
       }
     }
 
-    stdout.write("Create new  password: ");
+    stdout.write("${'create_pass_new'.tr}: ");
     String password = "";
 
-    while (password.isEmpty) {
+    while (password.isEmpty || password.length < 4 ) {
       password = stdin.readLineSync()!;
 
-      if (password.isEmpty) {
-        print("Password cannot be empty. Please try again.");
-        stdout.write("Enter your password: ");
+      if (password.isEmpty || password.length < 4) {
+        print('empty_pass_try'.tr);
+        stdout.write("${'enter_pass'.tr}: ");
       }
     }
 
-    stdout.write("Phone number: +998");
+    stdout.write("${'phone'.tr}: +998");
     String phone = "";
     bool isValidPhoneNumber = false;
 
@@ -66,15 +67,15 @@ class Registration extends Authentication {
       phone = stdin.readLineSync()!;
 
       if (phone.isEmpty) {
-        print("Phone number cannot be empty. Please try again.");
+        print("hatolik1".tr);
       } else if (!numberValidator(phone)) {
-        print("Invalid input. Please try again. Example: 911234567");
-        stdout.write("Phone number: +998");
+        print("${'ivalidbruh'}: 911234567");
+        stdout.write("${'phone'.tr}: +998");
       } else {
         isValidPhoneNumber = !users.any((user) => user.phone == phone);
         if (!isValidPhoneNumber) {
           print(
-              "Phone number '$phone' is already taken. Please choose another one.");
+              "${'phone'.tr} '$phone' ${'taken_number'.tr}.");
           stdout.write("Phone number: +998");
         }
       }
@@ -85,7 +86,7 @@ class Registration extends Authentication {
     Menu.user = newUser;
 
     await NetworkService.postData(newUser);
-    fRed('New User created: $name');
+    fRed('${'user_created'.tr}: $name');
     Navigator.push(MainMenu());
   }
 

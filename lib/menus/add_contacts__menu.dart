@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:console_chat_app/models/contact.dart';
+import 'package:console_chat_app/service/extension_service.dart';
 
 import '../models/user.dart';
 import '../service/navigator__service.dart';
@@ -18,50 +19,50 @@ class AddContactMenu extends Menu {
     // List<User> users =
     //     (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
 
-    print("Enter the information asked below to add contacts");
+    print("jojo".tr);
 
-    stdout.write("Name: ");
+    stdout.write("${'name'.tr}: ");
     String? name = stdin.readLineSync();
     while (name!.isEmpty) {
-      print('Invalid input. Please try again.');
-      stdout.write("Name: ");
+      print('invalid_input'.tr);
+      stdout.write("${'name'.tr}: ");
       name = stdin.readLineSync()!;
     }
 
-    stdout.write("Phone number: +998");
+    stdout.write("${"phone".tr}': +998");
     String phone = "";
     bool isValidPhoneNumber = false;
 
     while (!isValidPhoneNumber) {
       phone = stdin.readLineSync()!;
-      if(phone == "exit"){
+      if(phone == "exit".tr){
         await Navigator.push(ContactMenu());
       }
       else if (phone.isEmpty) {
-        print("Phone number cannot be empty. Please try again.");
-        stdout.write("Phone number: +998");
+        print('correct_phone'.tr);
+        stdout.write("${"phone".tr}: +998");
       } else if (!numberValidator(phone)) {
-        print("Invalid input. Please try again. Example: 911234567");
-        stdout.write("Phone number: +998");
+        print("${"correct_phone".tr}. Example: 911234567");
+        stdout.write("${'phone'.tr}: +998");
       } else if (!await doesNumberExist("+998${phone}")) {
         print(
-            "Your contact has not registered in our app yet (type 'exit' to quit)");
-        stdout.write("Phone number: +998");
+            "bruh".tr);
+        stdout.write("${"phone".tr}: +998");
       }
       else if (await doesNumberExistInContacts("+998${phone}", currentUser.contacts!)) {
         print(
-            "You already has this contact (type 'exit' to quit)");
+            "already_contact".tr);
       }
-      else if (phone == "exit") {
+      else if (phone == "exit".tr) {
         break;
       } else {
         currentUser.contacts?.add(Contacts(name, "+998$phone"));
 
         if (await NetworkService.deleteUser(currentUser.id)) {
           await NetworkService.postData(currentUser);
-          print("Contact added successfully");
+          print("add_success".tr);
         } else {
-          print("Smth went wrong");
+          print("wrong".tr);
         }
         await Navigator.push(ContactMenu());
       }

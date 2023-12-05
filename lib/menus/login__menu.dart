@@ -5,6 +5,7 @@ import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/menus/texting__menu.dart';
 import 'package:console_chat_app/models/user.dart';
 import 'package:console_chat_app/service/admin_service.dart';
+import 'package:console_chat_app/service/extension_service.dart';
 import 'package:console_chat_app/service/network__service.dart';
 import '../service/navigator__service.dart';
 import 'admin_menu.dart';
@@ -15,54 +16,40 @@ class Login extends Authentication {
 
   @override
   build() async {
-    bool loginSuccessful = false;
+    String apiEndpoint = NetworkService.apiUser;
+    String data = await NetworkService.getData(apiEndpoint);
 
-    do {
-      String apiEndpoint = NetworkService.apiUser;
-      String data = await NetworkService.getData(apiEndpoint);
+    print('${'data'.tr}:\n');
 
-      print('Enter your data:\n');
+    stdout.write('${'nick_name'.tr}: ');
+    String checkNickName = prompt('');
 
-      stdout.write('Nick name: ');
-      String checkNickName = prompt('');
+    stdout.write('${'password'.tr}: ');
+    String checkPassword = prompt('');
 
-      stdout.write('Password: ');
-      String checkPassword = prompt('');
+    List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
 
-      List<User> users = (json.decode(data) as List)
-          .map((json) => User.fromJson(json))
-          .toList();
+    for (User user in users) {
+      if(checkNickName == user.nickName && checkPassword == user.password) {
+        user.isLogged = true;
+        print('${'logged'.tr}!');
+        Menu.user.id = user.id;
+        Menu.user.name = user.name;
+        Menu.user.password = user.password;
+        Menu.user.nickName = user.nickName;
+        Menu.user.phone = user.phone;
+        Menu.user.isLogged = true;
+        Menu.user.contacts = user.contacts;
 
-      bool userFound = false;
-
-      for (User user in users) {
-        if (checkNickName == user.nickName && checkPassword == user.password) {
-          user.isLogged = true;
-          print('You\'re logged!');
-          Menu.user.id = user.id;
-          Menu.user.name = user.name;
-          Menu.user.password = user.password;
-          Menu.user.nickName = user.nickName;
-          Menu.user.phone = user.phone;
-          Menu.user.isLogged = true;
-          Menu.user.contacts = user.contacts;
-
-          if (isAdmin(user.nickName)) {
-            await Navigator.push(AdminMenu());
-          } else {
-            await Navigator.push(MainMenu());
-          }
-
-          userFound = true;
-          loginSuccessful = true;
-          break;
+        if(isAdmin(user.nickName)){
+          await Navigator.push(AdminMenu());
+        } else{
+          await Navigator.push(MainMenu());
         }
+      } else {
+        print('not_found'.tr);
       }
-
-      if (!userFound) {
-        print('No user found. Please try again.');
-      }
-    } while (!loginSuccessful);
+    }
   }
 
   String prompt(String promptMessage) {
@@ -70,3 +57,4 @@ class Login extends Authentication {
     return stdin.readLineSync()!;
   }
 }
+
