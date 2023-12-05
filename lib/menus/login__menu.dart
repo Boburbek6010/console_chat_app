@@ -15,40 +15,54 @@ class Login extends Authentication {
 
   @override
   build() async {
-    String apiEndpoint = NetworkService.apiUser;
-    String data = await NetworkService.getData(apiEndpoint);
+    bool loginSuccessful = false;
 
-    print('Enter your data:\n');
+    do {
+      String apiEndpoint = NetworkService.apiUser;
+      String data = await NetworkService.getData(apiEndpoint);
 
-    stdout.write('Nick name: ');
-    String checkNickName = prompt('');
+      print('Enter your data:\n');
 
-    stdout.write('Password: ');
-    String checkPassword = prompt('');
+      stdout.write('Nick name: ');
+      String checkNickName = prompt('');
 
-    List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
+      stdout.write('Password: ');
+      String checkPassword = prompt('');
 
-    for (User user in users) {
-      if(checkNickName == user.nickName && checkPassword == user.password) {
-        user.isLogged = true;
-        print('Your logged!');
-        Menu.user.id = user.id;
-        Menu.user.name = user.name;
-        Menu.user.password = user.password;
-        Menu.user.nickName = user.nickName;
-        Menu.user.phone = user.phone;
-        Menu.user.isLogged = true;
-        Menu.user.contacts = user.contacts;
+      List<User> users = (json.decode(data) as List)
+          .map((json) => User.fromJson(json))
+          .toList();
 
-        if(isAdmin(user.nickName)){
-          await Navigator.push(AdminMenu());
-        } else{
-          await Navigator.push(MainMenu());
+      bool userFound = false;
+
+      for (User user in users) {
+        if (checkNickName == user.nickName && checkPassword == user.password) {
+          user.isLogged = true;
+          print('You\'re logged!');
+          Menu.user.id = user.id;
+          Menu.user.name = user.name;
+          Menu.user.password = user.password;
+          Menu.user.nickName = user.nickName;
+          Menu.user.phone = user.phone;
+          Menu.user.isLogged = true;
+          Menu.user.contacts = user.contacts;
+
+          if (isAdmin(user.nickName)) {
+            await Navigator.push(AdminMenu());
+          } else {
+            await Navigator.push(MainMenu());
+          }
+
+          userFound = true;
+          loginSuccessful = true;
+          break;
         }
-      } else {
-        print('no user founded');
       }
-    }
+
+      if (!userFound) {
+        print('No user found. Please try again.');
+      }
+    } while (!loginSuccessful);
   }
 
   String prompt(String promptMessage) {
@@ -56,4 +70,3 @@ class Login extends Authentication {
     return stdin.readLineSync()!;
   }
 }
-
