@@ -46,7 +46,7 @@ class Registration extends Authentication {
       }
     }
 
-    stdout.write("Enter your password: ");
+    stdout.write("Create new  password: ");
     String password = "";
 
     while (password.isEmpty) {
