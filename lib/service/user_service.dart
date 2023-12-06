@@ -1,19 +1,16 @@
 import 'dart:convert';
 
+import '../menus/menu.dart';
 import '../models/contact.dart';
 import '../models/user.dart';
 import 'network__service.dart';
 
 Future<String> getUserIdByPhone(String phone) async {
-  String json = await NetworkService.getData(NetworkService.apiUser);
-  List<User> users =
-      List<User>.from(jsonDecode(json).map((e) => User.fromJson(e)));
-
   String userId = "0";
 
-  for (int i = 0; i < users.length; i++) {
-    if (users[i].phone == phone) {
-      userId = users[i].id;
+  for (int i = 0; i < Menu.users.length; i++) {
+    if (Menu.users[i].phone == phone) {
+      userId = Menu.users[i].id;
     }
   }
 
@@ -21,10 +18,6 @@ Future<String> getUserIdByPhone(String phone) async {
 }
 
 Future<User> getUserById(String id) async {
-  String json = await NetworkService.getData(NetworkService.apiUser);
-  List<User> users =
-      List<User>.from(jsonDecode(json).map((e) => User.fromJson(e)));
-
   User user1 = User(
     '1',
     "John Doe",
@@ -35,7 +28,7 @@ Future<User> getUserById(String id) async {
     contacts: [Contacts('Friend 1', '987654321')],
   );
 
-  for (User user in users) {
+  for (User user in Menu.users) {
     if (user.id == id) {
       user1 = user;
     }
@@ -43,11 +36,7 @@ Future<User> getUserById(String id) async {
   return user1;
 }
 
-Future<bool> isMyContact(List<Contacts>? contacts, String strangerId) async {
-  String json = await NetworkService.getData(NetworkService.apiUser);
-  List<User> users =
-      List<User>.from(jsonDecode(json).map((e) => User.fromJson(e)));
-
+Future<bool> isMyContact(List<Contacts>? contacts, String strangerId, List<User> users) async {
   bool toReturn = false;
 
   String phoneNumber = "";

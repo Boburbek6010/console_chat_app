@@ -14,10 +14,6 @@ class AddContactMenu extends Menu {
 
   @override
   build() async {
-    // String data = await NetworkService.getData(NetworkService.apiUser);
-    // List<User> users =
-    //     (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
-
     print("Enter the information asked below to add contacts");
 
     stdout.write("Name: ");
@@ -34,36 +30,37 @@ class AddContactMenu extends Menu {
 
     while (!isValidPhoneNumber) {
       phone = stdin.readLineSync()!;
-      if(phone == "exit"){
+      if (phone == "exit") {
         await Navigator.push(ContactMenu());
-      }
-      else if (phone.isEmpty) {
+      } else if (phone.isEmpty) {
         print("Phone number cannot be empty. Please try again.");
-        stdout.write("Phone number: +998");
+        stdout.write("Phone number or 'exit':");
       } else if (!numberValidator(phone)) {
         print("Invalid input. Please try again. Example: 911234567");
-        stdout.write("Phone number: +998");
+        stdout.write("Phone number or 'exit':");
       } else if (!await doesNumberExist("+998${phone}")) {
         print(
             "Your contact has not registered in our app yet (type 'exit' to quit)");
-        stdout.write("Phone number: +998");
-      }
-      else if (await doesNumberExistInContacts("+998${phone}", currentUser.contacts!)) {
+        stdout.write("Phone number or 'exit':");
+      } else if (await doesNumberExistInContacts(
+          "+998${phone}", currentUser.contacts!)) {
         print(
-            "You already has this contact (type 'exit' to quit)");
-      }
-      else if (phone == "exit") {
+            "You already has this contact (type 'exit' to quit) or enter the number");
+        stdout.write("Phone number or 'exit':");
+      } else if (phone == "exit") {
         break;
       } else {
         currentUser.contacts?.add(Contacts(name, "+998$phone"));
 
-        if (await NetworkService.deleteUser(currentUser.id)) {
-          await NetworkService.postData(currentUser);
+        String id = currentUser.id;
+
+        if (await NetworkService.putUser(currentUser, id)) {
           print("Contact added successfully");
         } else {
           print("Smth went wrong");
         }
         await Navigator.push(ContactMenu());
+        break;
       }
     }
   }
@@ -85,7 +82,8 @@ class AddContactMenu extends Menu {
     return toReturn;
   }
 
-  Future<bool> doesNumberExistInContacts(String phoneNumber, List<Contacts> contacts) async {
+  Future<bool> doesNumberExistInContacts(
+      String phoneNumber, List<Contacts> contacts) async {
     bool toReturn = false;
 
     for (Contacts c in contacts) {

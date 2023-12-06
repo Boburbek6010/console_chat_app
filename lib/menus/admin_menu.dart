@@ -10,18 +10,18 @@ import 'auth__menu.dart';
 import 'menu.dart';
 
 class AdminMenu extends Menu {
-  static const id = "/welcome_menu";
+  static const id = "/admin_menu";
 
   @override
   build() async {
     fGreen("╔═════════════════════╗");
     fGreen("║ Select menu:        ║");
     fGreen("║ 1. User List Menu   ║");
-    fGreen("║ 2. Authentication   ║");
-    fGreen("║ 3. Settings         ║");
-    fGreen("║ 4. Chats            ║");
-    fGreen("║ 5. Contacts         ║");
-    fGreen("║ 6. Exit             ║");
+    fGreen("║ 2. Settings         ║");
+    fGreen("║ 3. Chats            ║");
+    fGreen("║ 4. Contacts         ║");
+    fGreen("║ 5. Log out          ║");
+    fGreen("║ 6. Exit the app     ║");
     fGreen("╚═════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
@@ -33,22 +33,22 @@ class AdminMenu extends Menu {
         break;
       case "2":
         {
-          await Navigator.push(Authentication());
+          await Navigator.push(SettingMenu());
         }
         break;
       case "3":
         {
-          await Navigator.push(SettingMenu());
+          await Navigator.push(TextingMenu());
         }
         break;
       case "4":
         {
-          await Navigator.push(TextingMenu());
+          await Navigator.push(ContactMenu());
         }
         break;
       case "5":
         {
-          await Navigator.push(ContactMenu());
+          await Navigator.push(Authentication());
         }
         break;
       case "6":

@@ -10,28 +10,26 @@ import '../service/navigator__service.dart';
 import 'admin_menu.dart';
 import 'main__menu.dart';
 
-class Login extends Authentication {
+class Login extends Menu {
   static const id = '/login__menu';
 
   @override
   build() async {
-    String apiEndpoint = NetworkService.apiUser;
-    String data = await NetworkService.getData(apiEndpoint);
-
     print('Enter your data:\n');
 
-    stdout.write('Nick name: ');
+    stdout.write('Username: ');
     String checkNickName = prompt('');
 
     stdout.write('Password: ');
     String checkPassword = prompt('');
 
-    List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
+    bool userFound = false; // Flag to track if a user is found
 
-    for (User user in users) {
-      if(checkNickName == user.nickName && checkPassword == user.password) {
+    for (User user in Menu.users) {
+      if (checkNickName == user.nickName && checkPassword == user.password) {
+        userFound = true;
         user.isLogged = true;
-        print('Your logged!');
+        print('You are logged in!');
         Menu.user.id = user.id;
         Menu.user.name = user.name;
         Menu.user.password = user.password;
@@ -40,14 +38,21 @@ class Login extends Authentication {
         Menu.user.isLogged = true;
         Menu.user.contacts = user.contacts;
 
-        if(isAdmin(user.nickName)){
-          await Navigator.push(AdminMenu());
-        } else{
-          await Navigator.push(MainMenu());
-        }
-      } else {
-        print('no user founded');
+        // if (isAdmin(user.nickName)) {
+        //   await Navigator.push(AdminMenu());
+        // } else {
+        //   await Navigator.push(MainMenu());
+        // }
+
+        // Break out of the loop once a user is found
+        await Navigator.push(MainMenu());
       }
+    }
+
+    // Check the flag and print the message if no user is found
+    if (!userFound) {
+      print('No user found');
+      await Navigator.push(Authentication());
     }
   }
 
@@ -56,4 +61,3 @@ class Login extends Authentication {
     return stdin.readLineSync()!;
   }
 }
-

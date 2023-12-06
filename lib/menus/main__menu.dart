@@ -14,38 +14,44 @@ class MainMenu extends Menu {
 
   @override
   build() async {
-    fGreen("╔════════════════════╗");
-    fGreen("║ Select menu:       ║");
-    fGreen("║ 1. Authentication  ║");
-    fGreen("║ 2. Settings        ║");
-    fGreen("║ 3. Chats           ║");
-    fGreen("║ 4. Contacts        ║");
-    fGreen("║ 5. Exit            ║");
-    fGreen("╚════════════════════╝");
+    fGreen("╔═════════════════════╗");
+    fGreen("║ Select menu:        ║");
+    fGreen("║ 1. Settings         ║");
+    fGreen("║ 2. Chats            ║");
+    fGreen("║ 3. Contacts         ║");
+    fGreen("║ 4. Log out          ║");
+    fGreen("║ 0. Exit the app     ║");
+    fGreen("╚═════════════════════╝");
     String? menuSelection = stdin.readLineSync();
 
     switch (menuSelection) {
       case "1":
         {
-          await Navigator.push(Authentication());
+          await Navigator.push(SettingMenu());
         }
         break;
       case "2":
         {
-          await Navigator.push(SettingMenu());
+          await Navigator.push(TextingMenu());
         }
         break;
       case "3":
         {
-          await Navigator.push(TextingMenu());
+          await Navigator.push(ContactMenu());
         }
         break;
       case "4":
         {
-          await Navigator.push(ContactMenu());
+          fRed("Are you sure u want to log out? (type 'yes' to log out or anything else to go back)");
+          String? userChoice = stdin.readLineSync();
+          if(userChoice == "yes"){
+            await Navigator.push(Authentication());
+          } else{
+            await Navigator.push(MainMenu());
+          }
         }
         break;
-      case "5":
+      case "0":
         {
           exit(0);
         }

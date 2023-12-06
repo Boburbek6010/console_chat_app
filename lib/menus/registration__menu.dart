@@ -9,16 +9,11 @@ import '../service/navigator__service.dart';
 import '../service/network__service.dart';
 import 'menu.dart';
 
-class Registration extends Authentication {
-  static User currentUser = User('0', '', '', '', '', true);
+class Registration extends Menu {
   static const id = '/registration_menu';
 
   @override
   build() async {
-    String data = await NetworkService.getData(NetworkService.apiUser);
-    List<User> users =
-        (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
-
     stdout.write("Name: ");
     String? name = stdin.readLineSync();
     while (!isValidName(name!)) {
@@ -37,7 +32,7 @@ class Registration extends Authentication {
       if (username.isEmpty) {
         print("Username cannot be empty. Please try again.");
       } else {
-        isValidUsername = !users.any((user) => user.nickName == username);
+        isValidUsername = !Menu.users.any((user) => user.nickName == username);
         if (!isValidUsername) {
           print(
               "Username '$username' is already taken. Please choose another one.");
@@ -70,8 +65,13 @@ class Registration extends Authentication {
       } else if (!numberValidator(phone)) {
         print("Invalid input. Please try again. Example: 911234567");
         stdout.write("Phone number: +998");
-      } else {
-        isValidPhoneNumber = !users.any((user) => user.phone == phone);
+      }
+      else if (!await doesNumberExist("+998${phone}")) {
+        print("Invalid input. Please try again. Example: 911234567");
+        stdout.write("Phone number: +998");
+      }
+      else {
+        isValidPhoneNumber = !Menu.users.any((user) => user.phone == phone);
         if (!isValidPhoneNumber) {
           print(
               "Phone number '$phone' is already taken. Please choose another one.");
@@ -86,15 +86,28 @@ class Registration extends Authentication {
 
     await NetworkService.postData(newUser);
     fRed('New User created: $name');
-    Navigator.push(MainMenu());
+    await Navigator.push(MainMenu());
   }
 
   bool isValidName(String name) {
     // Check if the name contains only letters and is not empty
-    return RegExp(r'^[a-zA-Z]+$').hasMatch(name) && name.isNotEmpty;
+    return RegExp(r'^[a-zA-Z ]+$').hasMatch(name) && name.isNotEmpty;
   }
 
   bool numberValidator(String phoneNumber) {
     return RegExp(r'^\d{9}$').hasMatch(phoneNumber);
   }
+}
+
+Future<bool> doesNumberExist(String phoneNumber) async {
+  String data = await NetworkService.getData(NetworkService.apiUser);
+  List<User> users =
+  (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
+
+  bool toReturn = false;
+
+  for (User user in users) {
+    if (user.phone == phoneNumber) toReturn = true;
+  }
+  return toReturn;
 }

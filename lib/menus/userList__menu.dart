@@ -10,17 +10,12 @@ class UserListMenu extends Menu{
 
   @override
   build() async {
-    String apiEndpoint = NetworkService.apiUser;
-    String data = await NetworkService.getData(apiEndpoint);
-
-    List<User> users = (json.decode(data) as List).map((json) => User.fromJson(json)).toList();
     fGreen("╔═══════════════════╗");
     fGreen('║   List of Users:  ║');
     fGreen("╚═══════════════════╝");
-    for (User user in users) {
+    for (User user in Menu.users) {
       print('\nID: ${user.id} Name: ${user.name} Nick: ${user.nickName} Phone: ${user.phone}');
     }
 
   }
-
 }

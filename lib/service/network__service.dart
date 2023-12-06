@@ -23,6 +23,20 @@ class NetworkService {
     );
   }
 
+  static Future<bool> putUser(User product, String id) async {
+    Uri url = Uri.https(baseUrl, "$apiUser/$id");
+    Response response = await put(
+      url,
+      body: json.encode(product.toJson()),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   static Future<void> postMessageData(Message message) async {
     Uri url = Uri.https(baseUrl, apiMessage);
     await post(

@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:console_chat_app/menus/login__menu.dart';
+import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/menus/registration__menu.dart';
 import 'package:console_chat_app/menus/userList__menu.dart';
 import 'package:console_chat_app/menus/main__menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
 import 'package:console_chat_app/service/navigator__service.dart';
 
-class Authentication extends MainMenu{
+class Authentication extends Menu{
   static const id = "/auth_menu";
 
   @override
@@ -26,6 +27,10 @@ class Authentication extends MainMenu{
         await Navigator.push(Login());
       }
       break;
+      default:{
+        fRed("Wrong input!\n");
+        await Navigator.push(Authentication());
+      }
     }
   }
 }

@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -17,47 +18,46 @@ class TextingMenu extends Menu {
 
   @override
   build() async {
-    // String userData = await NetworkService.getData(NetworkService.apiUser);
-    // List<User> users = (json.decode(userData) as List)
-    //     .map((json) => User.fromJson(json))
-    //     .toList();
-
-    String messageData =
-        await NetworkService.getData(NetworkService.apiMessage);
-    List<Message> messages = (json.decode(messageData) as List)
-        .map((json) => Message.fromJson(json))
-        .toList();
-
     User user1 = Menu.user;
     fGreen("╔════════════════════════════╗");
     fGreen("║ Contacts list:             ║");
     fGreen("║ Type any character to exit ║ ");
     fGreen("╚════════════════════════════╝");
     for (int i = 0; i < user1.contacts!.length; i++) {
-      print('${i + 1} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
+      print('${i} ${user1.contacts![i].name}: ${user1.contacts![i].phone}');
     }
 
-    print("Looking for messages from strangers ...");
-
-    /// strangers list
-    for (Message msg in messages) {
-      bool yoyo = await isMyContact(user1.contacts, msg.from);
-      if (msg.to.toString() == user1.id && !yoyo) {
-        print(
-            "You have messages from strangers. Add them to your contacts list to chat with them.");
-        User axx = await getUserById(msg.from);
-        print("${axx.name} ${axx.phone}");
-      }
-    }
+    // print("Looking for messages from strangers ...");
+    //
+    // String data = await NetworkService.getData(NetworkService.apiUser);
+    // List<User> users = (json.decode(data) as List).map((json) =>
+    //     User.fromJson(json)).toList();
+    //
+    // String messageData =
+    // await NetworkService.getData(NetworkService.apiMessage);
+    // List<Message> messages = List<Message>.from(
+    //     jsonDecode(messageData).map((e) => Message.fromJson(e)));
+    //
+    //
+    // /// strangers list
+    // for (Message msg in messages) {
+    //   bool yoyo = await isMyContact(user1.contacts, msg.from, users);
+    //   if (msg.to.toString() == user1.id && !yoyo) {
+    //     print("You have messages from strangers");
+    //     User axx = await getUserById(msg.from);
+    //     print(axx.name);
+    //   }
 
     stdout.write("Choose the chat: ");
 
-    int? chosenContact = int.tryParse(stdin.readLineSync()!)! - 1;
+    int? chosenContact = int.tryParse(stdin.readLineSync() ?? "");
 
-    if (chosenContact >= 0 && chosenContact <= user1.contacts!.length) {
+    if (chosenContact != null &&
+        chosenContact >= 0 &&
+        chosenContact < user1.contacts!.length) {
       print("${user1.contacts?[chosenContact].name}");
       String currentFriendId =
-          await getUserIdByPhone(user1.contacts![chosenContact].phone);
+      await getUserIdByPhone(user1.contacts![chosenContact].phone);
 
       // print("Current friend id: $currentFriendId");
 
@@ -70,8 +70,8 @@ class TextingMenu extends Menu {
             jsonDecode(json).map((e) => Message.fromJson(e)));
         for (int i = 0; i < messages.length; i++) {
           if (messages[i].from == currentFriendId &&
-                  messages[i].to.toString() == user1.id &&
-                  messages[i].timeSent.isAfter(lastMessage) ||
+              messages[i].to.toString() == user1.id &&
+              messages[i].timeSent.isAfter(lastMessage) ||
               messages[i].from == user1.id &&
                   messages[i].to.toString() == currentFriendId &&
                   messages[i].timeSent.isAfter(lastMessage)) {
@@ -85,7 +85,7 @@ class TextingMenu extends Menu {
               int consoleWidth = 80;
               int spaces = consoleWidth - theirText.length;
               String rightAlignedText =
-                  theirText.padLeft(spaces + theirText.length);
+              theirText.padLeft(spaces + theirText.length);
               fRed(rightAlignedText);
             }
             lastMessage = messages[i].timeSent;
@@ -99,10 +99,13 @@ class TextingMenu extends Menu {
         }
 
         Message newMessage =
-            Message(user1.id, int.parse(currentFriendId), text!);
+        Message(user1.id, int.parse(currentFriendId), text!);
         await NetworkService.postMessageData(newMessage);
       }
     }
+    // else if(chosenContact == 0){
+    //   await Navigator.push(MainMenu());
+    // }
     else {
       await Navigator.push(MainMenu());
     }

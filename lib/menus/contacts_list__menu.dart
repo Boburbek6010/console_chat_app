@@ -2,15 +2,17 @@ import 'dart:io';
 
 import 'package:console_chat_app/menus/menu.dart';
 import 'package:console_chat_app/service/extension_colors.dart';
+import 'package:console_chat_app/service/navigator__service.dart';
 
 import '../models/contact.dart';
 import '../models/user.dart';
+import 'contact__menu.dart';
 
 class ContactsListMenu extends Menu {
   static const id = '/contacts_list_menu';
 
   @override
-  build() {
+  build() async {
     print("Contacts: \n");
 
     User currentUser = Menu.user;
@@ -22,6 +24,7 @@ class ContactsListMenu extends Menu {
     fGreen("╔════════════════════╗");
     fGreen("║ 1. Delete contact  ║");
     fGreen("║ 2. Edit contact    ║");
+    fGreen("║ 0. Back            ║");
     fGreen("╚════════════════════╝");
     String? userInput = stdin.readLineSync();
 
@@ -37,7 +40,7 @@ class ContactsListMenu extends Menu {
         editContact(editIndex);
         break;
       default:
-        print("Invalid option.");
+        await Navigator.push(ContactMenu());
         break;
     }
   }
