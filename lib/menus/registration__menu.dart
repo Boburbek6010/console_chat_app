@@ -88,6 +88,7 @@ class Registration extends Menu {
     fRed('New User created: $name');
     await Navigator.push(MainMenu());
   }
+  //hrtyhtyt
 
   bool isValidName(String name) {
     // Check if the name contains only letters and is not empty
