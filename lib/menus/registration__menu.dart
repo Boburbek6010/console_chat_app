@@ -66,8 +66,8 @@ class Registration extends Menu {
         print("Invalid input. Please try again. Example: 911234567");
         stdout.write("Phone number: +998");
       }
-      else if (!await doesNumberExist("+998${phone}")) {
-        print("Invalid input. Please try again. Example: 911234567");
+      else if (await doesNumberExist("+998${phone}")) {
+        print("This number is already registered in the system");
         stdout.write("Phone number: +998");
       }
       else {
